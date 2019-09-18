@@ -5,7 +5,7 @@ COLOR_BLACK = (0,0,0)
 COLOR_GREEN = (0,255,0)
 COLOR_BLUE = (0,0,255)
 COLOR_RED = (255,0,0)
-COLOR_Not_red = (250,0,0)
+COLOR_Not_red = (200,0,0)
 COLOR_WHITE = (255,255,255)
 BLOCK_SIZE = 18
 GAP_SIZE = 2
@@ -97,10 +97,48 @@ class Apple():
         
         pygame.draw.rect(game_display, self.color, pygame.Rect(self.xcor, self.ycor, self.size, self.size))
 
-class Pear():
+class Pear1():
     def __init__(self):
-        self.xcor = 10
-        self.ycor = 10
+        self.xcor = -1
+        self.ycor = -1
+        self.size = BLOCK_SIZE
+        self.color = COLOR_Not_red        
+    def change_location(self):
+        self.xcor = random.randrange(0, BLOCK_COUNT) * (BLOCK_SIZE + GAP_SIZE) + GAP_SIZE
+        self.ycor = random.randrange(0, BLOCK_COUNT) * (BLOCK_SIZE + GAP_SIZE) + GAP_SIZE
+    def show(self):
+        
+        pygame.draw.rect(game_display, self.color, pygame.Rect(self.xcor, self.ycor, self.size, self.size))
+class Pear2():
+    def __init__(self):
+        self.xcor = -1
+        self.ycor = -1
+        self.size = BLOCK_SIZE
+        self.color = COLOR_Not_red        
+    def change_location(self):
+        self.xcor = random.randrange(0, BLOCK_COUNT) * (BLOCK_SIZE + GAP_SIZE) + GAP_SIZE
+        self.ycor = random.randrange(0, BLOCK_COUNT) * (BLOCK_SIZE + GAP_SIZE) + GAP_SIZE
+    def show(self):
+        
+        pygame.draw.rect(game_display, self.color, pygame.Rect(self.xcor, self.ycor, self.size, self.size))
+
+class Pear3():
+    def __init__(self):
+        self.xcor = -1
+        self.ycor = -1
+        self.size = BLOCK_SIZE
+        self.color = COLOR_Not_red        
+    def change_location(self):
+        self.xcor = random.randrange(0, BLOCK_COUNT) * (BLOCK_SIZE + GAP_SIZE) + GAP_SIZE
+        self.ycor = random.randrange(0, BLOCK_COUNT) * (BLOCK_SIZE + GAP_SIZE) + GAP_SIZE
+    def show(self):
+        
+        pygame.draw.rect(game_display, self.color, pygame.Rect(self.xcor, self.ycor, self.size, self.size))
+
+class Pear4():
+    def __init__(self):
+        self.xcor = -1
+        self.ycor = -1
         self.size = BLOCK_SIZE
         self.color = COLOR_Not_red        
     def change_location(self):
@@ -138,7 +176,10 @@ def handle_events(snake):
 
 snake = Snake()
 apple = Apple()
-Pear = Pear()
+Pear1 = Pear1()
+Pear2 = Pear2()
+Pear3 = Pear3()
+Pear4 = Pear4()
 score = 0
 # Main Game Loop
 while snake.is_alive:
@@ -149,18 +190,36 @@ while snake.is_alive:
     snake.collides_with_itself()
     if is_collision(snake.body[0], apple):
         apple.change_location()
-        Pear.change_location()
+        Pear1.change_location()
+        Pear2.change_location()
+        Pear3.change_location()
+        Pear4.change_location()
         snake.grow()
         FRAMES_PER_SECOND += 1
         score += 1
     
     snake.collides_with_itself()
-    if is_collision(snake.body[0], Pear):
+    if is_collision(snake.body[0], Pear1):
+        snake.is_alive = False
+    
+    snake.collides_with_itself()
+    if is_collision(snake.body[0], Pear2):
+        snake.is_alive = False
+    
+    snake.collides_with_itself()
+    if is_collision(snake.body[0], Pear3):
+        snake.is_alive = False
+    
+    snake.collides_with_itself()
+    if is_collision(snake.body[0], Pear4):
         snake.is_alive = False
     
     apple.show()
     snake.show()
-    Pear.show()
+    Pear1.show()
+    Pear2.show()
+    Pear3.show()
+    Pear4.show()
     score_text = score_font.render(str(score), False, COLOR_BLUE)
     game_display.blit(score_text, (0,0))
     pygame.display.flip()
